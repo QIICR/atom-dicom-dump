@@ -1,0 +1,22 @@
+# See https://atom.io/docs/latest/hacking-atom-package-word-count#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle dicom-dump'
+      'command': 'dicom-dump:toggle'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'dicom-dump'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'dicom-dump:toggle'
+        }
+      ]
+    ]
+  }
+]

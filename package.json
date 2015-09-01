@@ -1,0 +1,18 @@
+{
+  "name": "dicom-dump",
+  "main": "./lib/dicom-dump",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "dicom-dump:toggle"
+  },
+  "repository": "https://github.com/atom/dicom-dump",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}

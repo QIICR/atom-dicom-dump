@@ -1,16 +1,50 @@
+{$, ScrollView} = require 'atom-space-pen-views'
+{Disposable} = require 'atom'
+{BufferedProcess} = require 'atom'
+path = require 'path'
+fs = require 'fs-plus'
+entities = null
 
 module.exports =
-class DicomDumpView
-  constructor: (serializedState) ->
-    # Create root element
-    @element = document.createElement('div')
-    @element.classList.add('dicom-dump')
+class DicomDumpView extends ScrollView
+  @content: ->
+    @div class: 'dicom-view padded pane-item', tabindex: -1, =>
+      @div class: 'dicom-dump', outlet: 'dicomDump'
 
-    # Create message element
-    message = document.createElement('div')
-    message.textContent = "The DicomDump package is Alive! It's ALIVE!"
-    message.classList.add('message')
-    @element.appendChild(message)
+  initialize: ({@filePath}) =>
+    console.log "DicomDumpView initialized"
+    super
+
+  attached: ->
+    entities ?= require 'entities'
+    @dicomFile(@filePath)
+
+    @dicomDump.css
+      'font-family': atom.config.get('editor.fontFamily')
+      'font-size': atom.config.get('editor.fontSize')
+
+  dicomFile: (filePath) ->
+    console.log "Inside dicomFile"
+    dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
+    command = dcmtkPath+'/dcmdump'
+    #console.log "Will run command "+command
+    args = [filePath]
+    prompt = "dcmdump of "+filePath
+    #output = "\,"
+    @dicomDump.append "<header>#{prompt}</header>"
+    #@hexDump.append "<div>#{stdout}>/div>"
+
+    @dicomDump.append "<div>"
+    stdout = (output) => @showDump output
+    exit = (code) -> console.log("dcmdump exited with #{code}")
+    process = new BufferedProcess({command, args, stdout, exit})
+
+    @dicomDump.append "</div>"
+
+  showDump: (buffer) =>
+    buffer = buffer.replace /\n/g, "<br>"
+    buffer = buffer.replace /\ /g, "&nbsp;"
+    @dicomDump.append buffer
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->
@@ -21,3 +55,9 @@ class DicomDumpView
 
   getElement: ->
     @element
+
+  getPath: -> @filePath
+
+  getURI: -> @filePath
+
+  getTitle: -> "dcmdump #{path.basename(@getPath())}"

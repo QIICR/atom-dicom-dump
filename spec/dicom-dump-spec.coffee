@@ -5,6 +5,8 @@ DicomDump = require '../lib/dicom-dump'
 # To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
 # or `fdescribe`). Remove the `f` to unfocus the block.
 
+dsadas is gargbave
+
 describe "DicomDump", ->
   [workspaceElement, activationPromise] = []
 
@@ -21,6 +23,7 @@ describe "DicomDump", ->
       # This is an activation event, triggering it will cause the package to be
       # activated.
       atom.commands.dispatch workspaceElement, 'dicom-dump:toggle'
+      #atom.commands.dispatch workspaceElement, 'dicom-dump:toggledsr'
 
       waitsForPromise ->
         activationPromise
@@ -34,6 +37,7 @@ describe "DicomDump", ->
         dicomDumpPanel = atom.workspace.panelForItem(dicomDumpElement)
         expect(dicomDumpPanel.isVisible()).toBe true
         atom.commands.dispatch workspaceElement, 'dicom-dump:toggle'
+        #atom.commands.dispatch workspaceElement, 'dicom-dump:togglesr'
         expect(dicomDumpPanel.isVisible()).toBe false
 
     it "hides and shows the view", ->
@@ -50,6 +54,7 @@ describe "DicomDump", ->
       # This is an activation event, triggering it causes the package to be
       # activated.
       atom.commands.dispatch workspaceElement, 'dicom-dump:toggle'
+      #atom.commands.dispatch workspaceElement, 'dicom-dump:togglesr'
 
       waitsForPromise ->
         activationPromise
@@ -59,4 +64,5 @@ describe "DicomDump", ->
         dicomDumpElement = workspaceElement.querySelector('.dicom-dump')
         expect(dicomDumpElement).toBeVisible()
         atom.commands.dispatch workspaceElement, 'dicom-dump:toggle'
+        #atom.commands.dispatch workspaceElement, 'dicom-dump:togglesr'
         expect(dicomDumpElement).not.toBeVisible()

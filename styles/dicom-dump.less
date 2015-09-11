@@ -4,5 +4,54 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
+atom-pane-container atom-pane .item-views {
+  overflow: auto;
+  .dicom-view {
+    padding-top: 0;
+    overflow: auto;
+  }
+  .dicomsr-view {
+    padding-top: 0;
+    overflow: auto;
+  }
+}
+
 .dicom-dump {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+.dicom-dump header {
+  padding-top: 10px;
+  white-space: nowrap;
+}
+.dicom-dump .dicom {
+  float: left;
+  margin: 10px 0 0 0;
+  padding: 0 20px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.dicom-dump .ascii {
+  margin: 10px 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.dicomsr-dump {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+.dicomsr-dump header {
+  padding-top: 10px;
+  white-space: nowrap;
+}
+.dicomsr-dump .dicom {
+  float: left;
+  margin: 10px 0 0 0;
+  padding: 0 20px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.dicomsr-dump .ascii {
+  margin: 10px 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
 }

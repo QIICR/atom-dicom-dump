@@ -2,8 +2,12 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Toggle dicom-dump'
-      'command': 'dicom-dump:toggle'
+      'label': 'Toggle dcmdump'
+      'command': 'dicom-dump:toggledcm'
+    },
+    {
+      'label': 'Toggle dcmsrdump'
+      'command': 'dicom-dump:togglesr'
     }
   ]
 'menu': [
@@ -13,8 +17,12 @@
       'label': 'dicom-dump'
       'submenu': [
         {
-          'label': 'Toggle'
-          'command': 'dicom-dump:toggle'
+          'label': 'Toggle dcmdump'
+          'command': 'dicom-dump:toggledcm'
+        },
+        {
+          'label': 'Toggle dsrdump'
+          'command': 'dicom-dump:togglesr'
         }
       ]
     ]

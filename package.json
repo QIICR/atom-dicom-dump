@@ -1,19 +1,21 @@
 {
   "name": "dicom-dump",
   "main": "./lib/dicom-dump",
-  "version": "0.0.1",
-  "description": "A better look at DICOM data",
-  "keywords": [
+  "version": "0.0.0",
+  "description": "DICOM viewer for Atom",
+  "keywords": [ "DICOM", "DCMTK", "viewer"
   ],
   "activationCommands": {
     "atom-workspace": ["dicom-dump:toggledcm",
       "dicom-dump:togglesr"]
   },
-  "repository": "",
+  "repository": "https://github.com/QIICR/atom-dicom-dump",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
+    "fs-plus" : "^2.0.0",
+    "atom-space-pen-views" : "^2.0.3"
   }
 }

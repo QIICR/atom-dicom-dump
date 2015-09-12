@@ -12,7 +12,6 @@ class DicomDumpView extends ScrollView
       @div class: 'dicom-dump', outlet: 'dicomDump'
 
   initialize: ({@filePath}) =>
-    console.log "DicomDumpView initialized"
     super
 
   attached: ->
@@ -24,15 +23,11 @@ class DicomDumpView extends ScrollView
       'font-size': atom.config.get('editor.fontSize')
 
   dicomFile: (filePath) ->
-    console.log "Inside dicomFile"
     dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
     command = dcmtkPath+'/dcmdump'
-    #console.log "Will run command "+command
     args = [filePath]
     prompt = "dcmdump of "+filePath
-    #output = "\,"
     @dicomDump.append "<header>#{prompt}</header>"
-    #@hexDump.append "<div>#{stdout}>/div>"
 
     @dicomDump.append "<div>"
     stdout = (output) => @showDump output

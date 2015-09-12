@@ -30,16 +30,10 @@ module.exports = DicomDump =
       @dcmtkPathChanged()
 
     # Register command that toggles this view
-    #@subscriptions.add atom.commands.add 'atom-workspace', 'dicom-dump:toggle': => createView()
     @subscriptions.add atom.commands.add 'atom-workspace',
       'dicom-dump:toggledcm': => @createView()
-      #console.log "DCM toggled"
-      #createView()
-    #@subscriptions.add atom.commands.add 'atom-workspace', 'dicom-dump:togglesr': => createSRView()
     @subscriptions.add atom.commands.add 'atom-workspace',
       'dicom-dump:togglesr': => @createSRView()
-      #console.log 'SR toggled'
-      #createSRView()
 
     # following hex package
     @DCMopenerDisposable = atom.workspace.addOpener(openDCMURI)
@@ -51,12 +45,6 @@ module.exports = DicomDump =
     @dicomDumpView.destroy()
     @DCMopenerDisposable.dispose()
     @SRopenerDisposable.dispose()
-
-  #toggledcm: ->
-  #  console.log "Regular toggle"
-
-  #togglesr: ->
-  #  console.log "SR toggled"
 
   serialize: ->
     dicomDumpViewState: @dicomDumpView.serialize()

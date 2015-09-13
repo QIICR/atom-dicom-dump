@@ -5,10 +5,10 @@ path = require 'path'
 fs = require 'fs-plus'
 
 module.exports =
-class DicomDumpView extends ScrollView
+class DicomSRDumpView extends ScrollView
   @content: ->
-    @div class: 'dicom-view padded pane-item', tabindex: -1, =>
-      @div class: 'dicom-dump', outlet: 'dicomDump'
+    @div class: 'dicomsr-view padded pane-item', tabindex: -1, =>
+      @div class: 'dicomsr-dump', outlet: 'dicomsrDump'
 
   initialize: ({@filePath}) =>
     super
@@ -16,28 +16,30 @@ class DicomDumpView extends ScrollView
   attached: ->
     @dicomFile(@filePath)
 
-    @dicomDump.css
+    @dicomsrDump.css
       'font-family': atom.config.get('editor.fontFamily')
       'font-size': atom.config.get('editor.fontSize')
 
   dicomFile: (filePath) ->
     dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
-    command = dcmtkPath+'/dcmdump'
+    command = dcmtkPath+'/dsrdump'
     args = [filePath]
-    prompt = "dcmdump of "+filePath
-    @dicomDump.append "<header>#{prompt}</header>"
+    prompt = "dsrdump of "+filePath
+    @dicomsrDump.append "<header>#{prompt}</header>"
 
-    @dicomDump.append "<div>"
+    @dicomsrDump.append "<div>"
     stdout = (output) => @showDump output
-    exit = (code) -> console.log("dcmdump exited with #{code}")
+    exit = (code) -> console.log("dsrdump exited with #{code}")
     process = new BufferedProcess({command, args, stdout, exit})
 
-    @dicomDump.append "</div>"
+    @dicomsrDump.append "</div>"
 
   showDump: (buffer) =>
-    buffer = buffer.replace /\n/g, "<br>"
     buffer = buffer.replace /\ /g, "&nbsp;"
-    @dicomDump.append buffer
+    buffer = buffer.replace />/g, "&gt;"
+    buffer = buffer.replace /</g, "&lt;"
+    buffer = buffer.replace /\n/g, "<br>"
+    @dicomsrDump.append buffer
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->
@@ -53,4 +55,4 @@ class DicomDumpView extends ScrollView
 
   getURI: -> @filePath
 
-  getTitle: -> "dcmdump #{path.basename(@getPath())}"
+  getTitle: -> "dsrdump #{path.basename(@getPath())}"

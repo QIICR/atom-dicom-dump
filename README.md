@@ -2,7 +2,15 @@
 
 ## Overview
 
-This package provides a point-and-click interface for exploring the content of [DICOM](http://dicom.nema.org/) files. At the moment, the functionality provided is allowing to run [DCMTK](http://dicom.offis.de/dcmtk.php.en) comamnd-line tools [dcmdump](http://support.dcmtk.org/docs/dcmdump.html) and [dsrdump](http://support.dcmtk.org/docs/dsrdump.html).
+This package provides a point-and-click interface for exploring the content of [DICOM](http://dicom.nema.org/) files. At the moment, the functionality provided is allowing to run [DCMTK](http://dicom.offis.de/dcmtk.php.en) command-line tools [dcmdump](http://support.dcmtk.org/docs/dcmdump.html) and [dsrdump](http://support.dcmtk.org/docs/dsrdump.html).
+
+By using this Atom package instead of running the DCMTK tools in the command
+line, you can:
+
+* conveniently copy content to the clipboard
+* do folding of the indented sections of the dump
+* search for content of interest
+* add a lot more features using powerful Atom engine ;)
 
 ## Status
 

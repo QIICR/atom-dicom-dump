@@ -3,6 +3,7 @@ fs = require 'fs-plus'
 DicomDumpView = null
 DicomSRDumpView = null
 {CompositeDisposable} = require 'atom'
+{BufferedProcess} = require 'atom'
 
 module.exports = DicomDump =
   dicomDumpView: null
@@ -18,7 +19,6 @@ module.exports = DicomDump =
       default: '/usr/bin'
 
   activate: (state) ->
-    #@dicomDumpView = new DicomDumpView(state.dicomDumpViewState)
     #@modalPanel = atom.workspace.addModalPanel(item: @dicomDumpView.getElement(), visible: false)
     @dcmtkInstallPath = atom.config.get "dicom-dump.dcmtkInstallPath"
 
@@ -31,13 +31,11 @@ module.exports = DicomDump =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace',
-      'dicom-dump:toggledcm': => @createView()
+      'dicom-dump:toggledcm': => @dcmdumpView()
     @subscriptions.add atom.commands.add 'atom-workspace',
-      'dicom-dump:togglesr': => @createSRView()
+      'dicom-dump:togglesr': => @dsrdumpView()
 
-    # following hex package
-    @DCMopenerDisposable = atom.workspace.addOpener(openDCMURI)
-    @SRopenerDisposable = atom.workspace.addOpener(openSRURI)
+    @editor = null
 
   deactivate: ->
     @modalPanel.destroy()
@@ -52,42 +50,40 @@ module.exports = DicomDump =
   dcmtkPathChanged: ->
     @dcmtkInstallPath = atom.config.get "dicom-dump.dcmtkInstallPath"
 
-  createView: ->
-    console.log "createView called"
-    paneItem = atom.workspace.getActivePaneItem()
-    filePath = paneItem.getPath()
+  dcmdumpView: ->
+    filePath = atom.workspace.getActiveTextEditor().getPath()
 
-    if paneItem and fs.isFileSync(filePath)
-      console.log 'Opening file path:'+filePath
-      atom.workspace.open('dicom-dump://'+filePath)
-    else
-      console.warn "File (#{filePath}) does not exists"
+    dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
+    command = dcmtkPath+'/dcmdump'
+    args = [filePath]
 
-  createSRView: ->
-    console.log 'createSRView called'
-    paneItem = atom.workspace.getActivePaneItem()
-    filePath = paneItem.getPath()
+    atom.workspace.open(filePath+'.dcmdump')
+    .then (editor) =>
+      @editor = editor.copy()
+      @editor.setText('')
+      stdout = (output) => @showDump output
+      exit = (code) -> console.log("dcmdump exited with #{code}")
+      process = new BufferedProcess({command, args, stdout, exit})
 
-    if paneItem and fs.isFileSync(filePath)
-      console.log 'Opening file path:'+filePath
-      atom.workspace.open('dicomsr-dump://'+filePath)
-    else
-      console.warn "File (#{filePath}) does not exists"
+    return
 
-openDCMURI = (uriToOpen) ->
-  console.log 'openURI with'+uriToOpen.substr(0,12)
-  return unless uriToOpen.substr(0, 10) is 'dicom-dump'
-  pathname = uriToOpen.replace 'dicom-dump://', ''
+  showDump: (buffer) ->
+    oldText = @editor.getText()
+    @editor.setText(oldText+buffer)
 
-  DicomDumpView ?= require './dicom-dump-view'
-  console.log "Type is DCM"
-  new DicomDumpView(filePath: pathname)
+  dsrdumpView: ->
+    filePath = atom.workspace.getActiveTextEditor().getPath()
 
-openSRURI = (uriToOpen) ->
-  console.log 'openURI with'+uriToOpen.substr(0,12)
-  return unless uriToOpen.substr(0, 12) is 'dicomsr-dump'
-  pathname = uriToOpen.replace 'dicomsr-dump://', ''
+    dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
+    command = dcmtkPath+'/dsrdump'
+    args = [filePath]
 
-  console.log "Type is SR"
-  DicomSRDumpView ?= require './dicomsr-dump-view'
-  new DicomSRDumpView(filePath: pathname)
+    atom.workspace.open(filePath+'.dsrdump')
+    .then (editor) =>
+      @editor = editor.copy()
+      @editor.setText('')
+      stdout = (output) => @showDump output
+      exit = (code) -> console.log("dsrdump exited with #{code}")
+      process = new BufferedProcess({command, args, stdout, exit})
+
+    return

@@ -1,4 +1,4 @@
-fs = require 'fs-plus'
+path = require 'path'
 
 DicomDumpView = null
 DicomSRDumpView = null
@@ -54,7 +54,7 @@ module.exports = DicomDump =
     filePath = atom.workspace.getActiveTextEditor().getPath()
 
     dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
-    command = dcmtkPath+'/dcmdump'
+    command = path.join(dcmtkPath,'dcmdump')
     args = [filePath]
 
     atom.workspace.open(filePath+'.dcmdump')
@@ -75,7 +75,7 @@ module.exports = DicomDump =
     filePath = atom.workspace.getActiveTextEditor().getPath()
 
     dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
-    command = dcmtkPath+'/dsrdump'
+    command = path.join(dcmtkPath,'dsrdump')
     args = [filePath]
 
     atom.workspace.open(filePath+'.dsrdump')

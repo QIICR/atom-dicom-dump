@@ -12,6 +12,15 @@ line, you can:
 * search for content of interest
 * add a lot more features using powerful Atom engine ;)
 
+## Usage
+
+0. Install the package from Atom > Settings > Install
+1. Download and install DCMTK binaries for your system from
+   http://dicom.offis.de/dcmtk.php.en
+2. Set the location of the DCMTK executables in the dicom-dump settings
+3. After opening a DICOM file in Atom, use context meny to invoke dcmdump or
+   dsrdump tools.
+
 ## Status
 
 This package is work in progress. Contributions from the community in the form of encouragements, comments, feature requests, bug repots and pull requests are very welcome!

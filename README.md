@@ -16,7 +16,7 @@ line, you can:
 
 0. Install the package from Atom > Settings > Install
 1. Download and install DCMTK binaries for your system from
-   http://dicom.offis.de/dcmtk.php.en
+   http://dicom.offis.de/dcmtk.php.en (HINT: binaries of DCMTK command line tools are build and packaged with 3D Slicer (http://slicer.org) - you can install Slicer and point atom-dicom-dump to the subdirectory of 3D Slicer installation where dcmdump is located! For example, on Mac OS X it is /Applications/Slicer.app/Contents/bin)
 2. Set the location of the DCMTK executables in the dicom-dump settings
 3. After opening a DICOM file in Atom, use context meny to invoke dcmdump or
    dsrdump tools.

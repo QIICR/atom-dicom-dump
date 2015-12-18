@@ -55,6 +55,7 @@ module.exports = DicomDump =
 
     dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
     command = path.join(dcmtkPath,'dcmdump')
+    command += '.exe' if process.platform == 'win32' | process.platform == 'win64'
     args = [filePath]
 
     atom.workspace.open(filePath+'.dcmdump')
@@ -76,6 +77,7 @@ module.exports = DicomDump =
 
     dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
     command = path.join(dcmtkPath,'dsrdump')
+    command += '.exe' if process.platform == 'win32' | process.platform == 'win64'
     args = [filePath]
 
     atom.workspace.open(filePath+'.dsrdump')

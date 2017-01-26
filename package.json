@@ -1,7 +1,7 @@
 {
   "name": "dicom-dump",
   "main": "./lib/dicom-dump",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "DICOM viewer for Atom",
   "keywords": [
     "DICOM",

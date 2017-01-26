@@ -45,7 +45,7 @@ module.exports = DicomDump =
     @SRopenerDisposable.dispose()
 
   serialize: ->
-    dicomDumpViewState: @dicomDumpView.serialize()
+    # dicomDumpViewState: @dicomDumpView.serialize()
 
   dcmtkPathChanged: ->
     @dcmtkInstallPath = atom.config.get "dicom-dump.dcmtkInstallPath"
@@ -69,8 +69,8 @@ module.exports = DicomDump =
     return
 
   showDump: (buffer) ->
-    oldText = @editor.getText()
-    @editor.setText(oldText+buffer)
+    @editor.setCursorBufferPosition([Infinity, Infinity])
+    @editor.insertText(buffer)
 
   dsrdumpView: ->
     filePath = atom.workspace.getActiveTextEditor().getPath()

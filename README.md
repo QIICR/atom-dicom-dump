@@ -15,11 +15,13 @@ line, you can:
 ## Usage
 
 0. Install the package from Atom > Settings > Install
-1. Download and install DCMTK binaries for your system from
-   http://dicom.offis.de/dcmtk.php.en (HINT: binaries of DCMTK command line tools are build and packaged with 3D Slicer (http://slicer.org) - you can install Slicer and point atom-dicom-dump to the subdirectory of 3D Slicer installation where dcmdump is located! For example, on Mac OS X it is /Applications/Slicer.app/Contents/bin)
-2. Set the location of the DCMTK executables in the dicom-dump settings
-3. After opening a DICOM file in Atom, use context meny to invoke dcmdump or
-   dsrdump tools.
+1. Install DCMTK on your system:
+ * Windows: you can download pre-compiled DCMTK binaries from
+   https://github.com/QIICR/dcmtk-dcmqi/releases (direct download link)[https://github.com/QIICR/dcmtk-dcmqi/releases/download/DCMTK-dcmqi-3.6.1_20161102-VS12-Win64-Release-v0.0.11-static/DCMTK-dcmqi.zip]. You will also need to download and install (Visual C++ Redistributable Packages for Visual Studio 2013)[http://www.microsoft.com/en-us/download/details.aspx?id=40784]. `DCMTK_PATH` should point to the `bin` folder inside the unzipped `DCMTK-dcmqi.zip` package. Note that you will not be able to use DCMTK binaries from 3D Slicer (the approach discussed below for Mac and Lunux will not work on Windows!)
+ * Mac: you can download and install (3D Slicer application)[http://download.slicer.org] package for Mac, which contains pre-compiled DCMTK tools. If you install 3D Slicer into the standard system location, `DCMTK_PATH` should point to `/Applications/Slicer.app/Contents/bin`
+ * Mac: you can download and install (3D Slicer application)[http://download.slicer.org] for Linux, which contains pre-compiled DCMTK tools. `DCMTK_PATH` should point to the `bin` directory inside the unzipped Linux package of 3D Slicer.
+2. Set the location of the DCMTK executables to `DCMTK_PATH` specific to your system in the dicom-dump package settings
+3. After opening a DICOM file in Atom, use context menu to invoke `dcmdump` or `dsrdump` tools.
 
 ## Status
 

@@ -12,11 +12,24 @@ module.exports = DicomDump =
   dcmtkPath: null
 
   config:
+
     dcmtkInstallPath:
       title: 'Path to DCMTK installation'
       description: 'This should point to the location where dcmdump lives'
       type: 'string'
       default: '/usr/bin'
+
+    dcmdumpFlags:
+      title: 'dcmdump command line flags'
+      description: 'These flags will be passed to dcmdump'
+      type: 'string'
+      default: ''
+
+    dsrdumpFlags:
+      title: 'dsrdump command line flags'
+      description: 'These flags will be passed to dsrdump'
+      type: 'string'
+      default: ''
 
   activate: (state) ->
     #@modalPanel = atom.workspace.addModalPanel(item: @dicomDumpView.getElement(), visible: false)
@@ -52,11 +65,12 @@ module.exports = DicomDump =
 
   dcmdumpView: ->
     filePath = atom.workspace.getActiveTextEditor().getPath()
+    flags = atom.config.get "dicom-dump.dcmdumpFlags"
 
     dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
     command = path.join(dcmtkPath,'dcmdump')
     command += '.exe' if process.platform == 'win32' | process.platform == 'win64'
-    args = [filePath]
+    args = [flags,filePath]
 
     atom.workspace.open(filePath+'.dcmdump')
     .then (editor) =>
@@ -74,11 +88,12 @@ module.exports = DicomDump =
 
   dsrdumpView: ->
     filePath = atom.workspace.getActiveTextEditor().getPath()
+    flags = atom.config.get "dicom-dump.dsrdumpFlags"
 
     dcmtkPath = atom.config.get "dicom-dump.dcmtkInstallPath"
     command = path.join(dcmtkPath,'dsrdump')
     command += '.exe' if process.platform == 'win32' | process.platform == 'win64'
-    args = [filePath]
+    args = [flags,filePath]
 
     atom.workspace.open(filePath+'.dsrdump')
     .then (editor) =>

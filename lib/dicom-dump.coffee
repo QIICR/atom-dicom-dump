@@ -34,9 +34,24 @@ module.exports = DicomDump =
       default: ''
       order: 3
 
+    gdcmInstallPath:
+      title: 'Path to GDCM installation'
+      description: 'This should point to the location where gdcmdump lives'
+      type: 'string'
+      default: '/usr/bin'
+      order: 4
+
+    gdcmdumpFlags:
+      title: 'gdcmdump command line flags'
+      description: 'These flags will be passed to gdcmdump (no quotes!) Note that the requied -i argument will be passed automatically.'
+      type: 'string'
+      default: '-i'
+      order: 5
+
   activate: (state) ->
     #@modalPanel = atom.workspace.addModalPanel(item: @dicomDumpView.getElement(), visible: false)
     @dcmtkInstallPath = atom.config.get "dicom-dump.dcmtkInstallPath"
+    @gdcmInstallPath = atom.config.get "dicom-dump.gdcmInstallPath"
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -45,11 +60,17 @@ module.exports = DicomDump =
     @subscriptions.add atom.config.observe "dicom-dump.dcmtkInstallPath", =>
       @dcmtkPathChanged()
 
+    # GDCM Path setting
+    @subscriptions.add atom.config.observe "dicom-dump.gdcmInstallPath", =>
+      @gdcmPathChanged()
+
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace',
       'dicom-dump:toggledcm': => @dcmdumpView()
     @subscriptions.add atom.commands.add 'atom-workspace',
       'dicom-dump:togglesr': => @dsrdumpView()
+    @subscriptions.add atom.commands.add 'atom-workspace',
+      'dicom-dump:togglegdcmdump': => @gdcmdumpView()
 
     @editor = null
 
@@ -66,7 +87,11 @@ module.exports = DicomDump =
   dcmtkPathChanged: ->
     @dcmtkInstallPath = atom.config.get "dicom-dump.dcmtkInstallPath"
 
+  gdcmPathChanged: ->
+    @gdcmInstallPath = atom.config.get "dicom-dump.gdcmInstallPath"
+
   dcmdumpView: ->
+    console.log("Inside dcmdumpView!")
     filePath = atom.workspace.getActiveTextEditor().getPath()
     flags = atom.config.get "dicom-dump.dcmdumpFlags"
     flags = flags.split " "
@@ -75,6 +100,8 @@ module.exports = DicomDump =
     command = path.join(dcmtkPath,'dcmdump')
     command += '.exe' if process.platform == 'win32' | process.platform == 'win64'
     args = flags.concat filePath
+    console.log filePath
+    console.log args
 
     atom.workspace.open(filePath+'.dcmdump')
     .then (editor) =>
@@ -82,6 +109,31 @@ module.exports = DicomDump =
       @editor.setText('')
       stdout = (output) => @showDump output
       exit = (code) -> console.log("dcmdump exited with #{code}")
+      process = new BufferedProcess({command, args, stdout, exit})
+
+    return
+
+  gdcmdumpView: ->
+    console.log("Inside gdcmdumpView!")
+    filePath = atom.workspace.getActiveTextEditor().getPath()
+    flags = atom.config.get "dicom-dump.gdcmdumpFlags"
+    console.log flags
+    flags = flags.split " "
+
+    gdcmPath = atom.config.get "dicom-dump.gdcmInstallPath"
+    command = path.join(gdcmPath,'gdcmdump')
+    command += '.exe' if process.platform == 'win32' | process.platform == 'win64'
+    args = flags.concat filePath
+    console.log filePath
+    console.log args
+    #(command) -> console.log("Running command #{command}")
+
+    atom.workspace.open(filePath+'.gdcmdump')
+    .then (editor) =>
+      @editor = editor.copy()
+      @editor.setText('')
+      stdout = (output) => @showDump output
+      exit = (code) -> console.log("gdcmdump exited with #{code}")
       process = new BufferedProcess({command, args, stdout, exit})
 
     return

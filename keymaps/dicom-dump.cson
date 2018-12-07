@@ -10,3 +10,4 @@
 'atom-workspace':
   'ctrl-alt-d': 'dicom-dump:toggledcm'
   'ctrl-alt-s': 'dicom-dump:togglesr'
+  'ctrl-alt-g': 'dicom-dump:togglegdcmdump'

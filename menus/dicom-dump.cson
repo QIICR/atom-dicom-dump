@@ -8,6 +8,10 @@
     {
       'label': 'Toggle dsrdump'
       'command': 'dicom-dump:togglesr'
+    },
+    {
+      'label': 'Toggle gdcmdump'
+      'command': 'dicom-dump:togglegdcmdump'
     }
   ]
 'menu': [
@@ -23,6 +27,10 @@
         {
           'label': 'Toggle dsrdump'
           'command': 'dicom-dump:togglesr'
+        },
+        {
+          'label': 'Toggle gdcmdump'
+          'command': 'dicom-dump:togglegdcmdump'
         }
       ]
     ]

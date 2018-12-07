@@ -2,7 +2,7 @@
 
 ## Overview
 
-This package provides a point-and-click interface for exploring the content of [DICOM](http://dicom.nema.org/) files. At the moment, the functionality provided is allowing to run [DCMTK](http://dicom.offis.de/dcmtk.php.en) command-line tools [dcmdump](http://support.dcmtk.org/docs/dcmdump.html) and [dsrdump](http://support.dcmtk.org/docs/dsrdump.html).
+This package provides a point-and-click interface for exploring the content of [DICOM](http://dicom.nema.org/) files. At the moment, the functionality provided is allowing to run [DCMTK](http://dicom.offis.de/dcmtk.php.en) command-line tools [dcmdump](http://support.dcmtk.org/docs/dcmdump.html) and [dsrdump](http://support.dcmtk.org/docs/dsrdump.html), and [GDCM](http://gdcm.sourceforge.net) [gdcmdump](http://gdcm.sourceforge.net/html/gdcmdump.html) tool (gdcmdump provides functionality not available in dcmdump, such as view of the Siemens CSA header).
 
 By using this Atom package instead of running the DCMTK tools in the command
 line, you can:
@@ -18,7 +18,7 @@ line, you can:
 
 Install the package from Atom > Settings > Install
 
-### Install DCMTK
+### Install DCMTK and/or GDCM
 
 You can download precompiled DCMTK packages from the official DCMTK page here:
 
@@ -29,13 +29,15 @@ You can download precompiled DCMTK packages from the official DCMTK page here:
  * [DCMTK binaries for Linux](https://github.com/QIICR/dcmtk-dcmqi/releases/download/0d2826645/dcmtk-Linux-0d2826645.zip)
  * [DCMTK binaries for macOS](https://github.com/QIICR/dcmtk-dcmqi/releases/download/0d2826645/dcmtk-macOS-0d2826645.zip)
 
-### Set DCMTK path in the package settings
+ We do not provide the binaries to download packages of GDCM for individual platforms, you can check SourceForge for binaries here: https://sourceforge.net/projects/gdcm/.
+
+### Set paths to the tools in the package settings
 
 ![Screenshot](https://raw.githubusercontent.com/QIICR/atom-dicom-dump/master/screenshots/dcmtk_path_settings.jpg)
 
 ### Activate package after opening a DICOM file
 
-After opening a DICOM file in Atom, use context menu to invoke `dcmdump` or `dsrdump` tools.
+After opening a DICOM file in Atom, use context menu to invoke `dcmdump`, `dsrdump` or `gdcmdump` tools.
 
 ## Status
 

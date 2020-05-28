@@ -45,7 +45,11 @@ This package is work in progress. Contributions from the community in the form o
 
 ## Acknowledgment
 
-This package is being developed by [Andrey Fedorov](https://github.com/fedorov) as part of the [QIICR](http://qiicr.org) project activities. QIICR is supported by NIH National Cancer Institute, award U24 CA180918. Please contact Andrey, join [QIICR community on Google+](https://plus.google.com/b/103730364707811819340/+QiicrOrg), or submit an issue on the issue tracker!
+This package is being developed by [Andrey Fedorov](https://github.com/fedorov) as part of the [QIICR](http://qiicr.org) project activities. QIICR was supported by NIH National Cancer Institute in 2013-2018 by the award U24 CA180918. Please contact Andrey, join [QIICR community on Google+](https://plus.google.com/b/103730364707811819340/+QiicrOrg), or submit an issue on the issue tracker!
+
+If you found this package useful in preparing an academic publication, we would appreciate if you cite this article:
+
+> Fedorov, A., Beichel, R., Kalpathy-Cramer, J., Clunie, D., Onken, M., Riesmeier, J., Herz, C., Bauer, C., Beers, A., Fillion-Robin, J.-C., Lasso, A., Pinter, C., Pieper, S., Nolden, M., Maier-Hein, K., Herrmann, M. D., Saltz, J., Prior, F., Fennessy, F., Buatti, J. & Kikinis, R. Quantitative Imaging Informatics for Cancer Research. JCO Clin Cancer Inform 4, 444–453 (2020). https://ascopubs.org/doi/full/10.1200/CCI.19.00165
 
 ## Demo
 
